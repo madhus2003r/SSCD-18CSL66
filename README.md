@@ -9,24 +9,7 @@ Installation:
 2.Write the Lex program:
 
 Create a new file with a .l extension, such as program.l, and write your Lex program in it. Lex programs define lexical analyzers that tokenize input streams.
-Here's an example of a simple Lex program that recognizes integers and operators:
-%{
-#include <stdio.h>
-%}
 
-%%
-[0-9]+    { printf("INTEGER: %s\n", yytext); }
-"+"       { printf("PLUS\n"); }
-"-"       { printf("MINUS\n"); }
-"*"       { printf("MULTIPLY\n"); }
-"/"       { printf("DIVIDE\n"); }
-.         { /* Ignore unrecognized characters */ }
-%%
-
-int main() {
-    yylex();
-    return 0;
-}
 3.Compile the Lex program:
 
 Open the terminal and navigate to the directory where your Lex program file is located.
@@ -36,35 +19,7 @@ This command generates a C source file named lex.yy.c based on your Lex program.
 4.Write the YACC program:
 
 Create a new file with a .y extension, such as program.y, and write your YACC program in it. YACC programs define grammars and specify the parsing rules for input streams.
-Here's an example of a simple YACC program that recognizes arithmetic expressions using the Lex program we defined earlier:
-%{
-#include <stdio.h>
-%}
 
-%token INTEGER PLUS MINUS MULTIPLY DIVIDE
-
-%%
-statement : expression { printf("Valid expression\n"); }
-          ;
-
-expression : INTEGER
-           | expression PLUS expression
-           | expression MINUS expression
-           | expression MULTIPLY expression
-           | expression DIVIDE expression
-           ;
-
-%%
-
-int main() {
-    yyparse();
-    return 0;
-}
-
-int yyerror(char *s) {
-    printf("Error: %s\n", s);
-    return 0;
-}
 5.Compile the YACC program:
 
 Use the following command to compile the YACC program and link it with the Lex-generated C source file:
