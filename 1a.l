@@ -5,7 +5,7 @@ int i=0,o=0,k,flag=0;
 char id[10][10], op[10][10];
 %}
 %%
-[0-9]+ {flag++;strcpy(id[i],yytext);i++;}
+[a-zA-Z0-9]+ {flag++;strcpy(id[i],yytext);i++;}
 [+*] {flag--;strcpy(op[o],yytext);o++;}
 .|\n {return 0;}
 %%
